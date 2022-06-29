@@ -51,9 +51,12 @@ Desafio para admissão ao time de Back-End da Tech Pro Bem.
 - https://joi.dev/api/?v=17.6.0
 
 ## Entrega
-- Você deve dar um Fork nesse repositório, subir uma PR e enviar um email com o link dessa PR para: gabrieleac2009@gmail.com
+- Você deve dar um Fork nesse repositório, subir uma PR e enviar um email com o link dessa PR para: techprobem.backend@gmail.com
+
+## Dúvidas
+- Para sessão de dúvidas, abra uma issue e descreva de forma mais clara possível sua dúvida.
 
 ## Observações
-Sinta-se livre para usar/não usar tudo que não for obrigatório. Dependendo da quantidade de inscrições, haverá momentos para mentorias 1v1 para o desenvolvimento do desafio.
+Sinta-se livre para usar/não usar tudo que não for obrigatório. Dependendo da quantidade de inscrições, o feedback será será 1v1.
 
 Boa sorte!
