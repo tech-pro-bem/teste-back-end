@@ -12,7 +12,7 @@ Desafio para admissão ao time de Back-End da Tech Pro Bem.
 
 ## Você tem a opção de entregar o teste baseado nos níveis apresentados abaixo.
 
-## Nível 1 (obrigatório):
+### Nível 1 (obrigatório):
 - Node;
 - JavaScript;
 - MongoDB.
