@@ -2,7 +2,7 @@
 Desafio para admissão ao time de Back-End da Tech Pro Bem.
 
 ## Objetivo
-- Desenvolver e expor CRUD via API REST para gerenciar dados de voluntários e apresentar os níveis de crescimento para se tornar um programador com uma bagagem técnica melhor.  
+- Desenvolver e expor CRUD via API REST para gerenciar dados de voluntários e apresentar os níveis de crescimento para se tornar um programador com uma bagagem técnica maior.  
 
 ## Funcionalidades
 - Lambda para criar um voluntário (POST);
@@ -10,20 +10,20 @@ Desafio para admissão ao time de Back-End da Tech Pro Bem.
 - Lambda para excluir um voluntário (DELETE);
 - Lambda para resgatar um voluntário (GET).
 
-## Você tem a opção de entregar o teste baseado nos níveis apresentados abaixo.
+## Você tem as opções de entregar o teste baseado nos níveis apresentados abaixo:
 
 ### Nível 1 (obrigatório):
 - Node;
 - JavaScript;
 - MongoDB.
 
-## Nível 2:
+### Nível 2:
 - Node;
 - TypeScript;
 - MongoDB;
 - Códigos HTTP de resposta condizente -> 200, 201, 400, 401, 403 (esses últimos são usados caso você opte colocar JWT), 500 e outros.
 
-## Nível 3:
+### Nível 3:
 - Node;
 - TypeScript;
 - Códigos HTTP.
@@ -31,7 +31,7 @@ Desafio para admissão ao time de Back-End da Tech Pro Bem.
 - AWS Lambda;
 - DynamoDB;
 
-## Nível 4:
+### Nível 4:
 - Node;
 - TypeScript;
 - Códigos HTTP.
@@ -40,7 +40,7 @@ Desafio para admissão ao time de Back-End da Tech Pro Bem.
 - AWS Lambda;
 - DynamoDB;
 
-## Nível 5:
+### Nível 5:
 - Node;
 - TypeScript;
 - Códigos HTTP.
