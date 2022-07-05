@@ -1,0 +1,20 @@
+{
+  "name": "teste-back-end",
+  "version": "1.0.0",
+  "description": "Desafio para admissão ao time de Back-End da Tech Pro Bem.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Luana0308/teste-back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Luana0308/teste-back-end/issues"
+  },
+  "homepage": "https://github.com/Luana0308/teste-back-end#readme"
+}
