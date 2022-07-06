@@ -1,0 +1,8 @@
+{
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": true,
+  "javascript.preferences.quoteStyle": "single",
+  "prettier.quoteProps": "consistent",
+  "editor.formatOnSave": false,
+  "files.autoSave": "afterDelay"
+}
