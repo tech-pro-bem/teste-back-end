@@ -1,13 +1,23 @@
 const VolunteerRepository = require('../repositories/Volunteer');
 
 const signUp = async (body) => {
-    const {name, email, password} = body;
+    const { name, email, password } = body;
+
+    const volunteerExists = await VolunteerRepository.findVolunteerByEmail(email)
 
     try {
-        if(!name || !email || !password){
+
+        if (volunteerExists) {
+            return{
+                statusCode: 409,
+                data: "Voluntário já cadastrado"
+            }
+        }
+
+        if (!name || !email || !password) {
             return {
                 statusCode: 400,
-                data:  "Não foi possível criar o usuário. Os parâmetros não foram inseridos corretamente"
+                data: "Não foi possível criar o cadastro de voluntário. Os parâmetros não foram inseridos corretamente"
             }
         }
 
@@ -21,9 +31,8 @@ const signUp = async (body) => {
         return {
             statusCode: 500,
             data: error
-          }
+        }
     }
-
 }
 
 const findVolunteers = async () => {
@@ -33,23 +42,39 @@ const findVolunteers = async () => {
 
         if (!volunteers) {
             return {
-              statusCode: 404,
-              data: 'Nenhum usuário encontrado!'
+                statusCode: 404,
+                data: 'Nenhum usuário encontrado!'
             }
-          }
-          return {
+        }
+        return {
             statusCode: 200,
             data: volunteers
-          }
-        
+        }
+
     } catch (error) {
         return {
             statusCode: 500,
             data: error
-          }
+        }
+    }
+}
+
+const findVolunteerByEmail = async (email) => {
+    try {
+        const volunteer = await VolunteerRepository.findVolunteerByEmail(email);
+        return {
+            statusCode: 200,
+            data: volunteer
+        }
+
+    } catch (error) {
+        return {
+            statusCode: 500,
+            data: error
+        }
     }
 }
 
 module.exports = {
-    signUp, findVolunteers
+    signUp, findVolunteers, findVolunteerByEmail
 }

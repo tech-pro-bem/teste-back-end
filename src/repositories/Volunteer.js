@@ -8,7 +8,12 @@ const findVolunteers = async () => {
     return await VolunteerModel.find()
 }
 
+const findVolunteerByEmail = async (email) => {
+    return await VolunteerModel.findOne({email: email})
+}
+
 module.exports = {
     signUp,
-    findVolunteers
+    findVolunteers,
+    findVolunteerByEmail
 }
