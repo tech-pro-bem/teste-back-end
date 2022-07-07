@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const indexRoutes = require('./routes/index')
+
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
+app.use('/', indexRoutes);
 
 const mongoURL = process.env.MONGO_URL;
 console.log(mongoURL);
