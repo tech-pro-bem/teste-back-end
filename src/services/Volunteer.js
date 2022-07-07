@@ -11,7 +11,7 @@ const signUp = async (body) => {
             }
         }
 
-        let volunteer = await VolunteerRepository.signUp(body);
+        const volunteer = await VolunteerRepository.signUp(body);
         return {
             statusCode: 200,
             data: volunteer
@@ -26,6 +26,30 @@ const signUp = async (body) => {
 
 }
 
+const findVolunteers = async () => {
+    try {
+
+        let volunteers = await VolunteerRepository.findVolunteers();
+
+        if (!volunteers) {
+            return {
+              statusCode: 404,
+              data: 'Nenhum usuário encontrado!'
+            }
+          }
+          return {
+            statusCode: 200,
+            data: volunteers
+          }
+        
+    } catch (error) {
+        return {
+            statusCode: 500,
+            data: error
+          }
+    }
+}
+
 module.exports = {
-    signUp
+    signUp, findVolunteers
 }
