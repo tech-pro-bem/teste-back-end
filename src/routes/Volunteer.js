@@ -5,5 +5,6 @@ const routesVolunteer = express.Router();
 routesVolunteer.post("/", VolunteerController.signUp);
 routesVolunteer.get("/", VolunteerController.findVolunteers)
 routesVolunteer.get("/:email", VolunteerController.findVolunteerByEmail)
+routesVolunteer.delete("/:email", VolunteerController.deleteVolunteer)
 
 module.exports = routesVolunteer;

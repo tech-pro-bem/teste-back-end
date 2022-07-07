@@ -75,6 +75,33 @@ const findVolunteerByEmail = async (email) => {
     }
 }
 
+const deleteVolunteer = async (email) => {
+    const userExists = await VolunteerRepository.findVolunteerByEmail(email);
+        
+    try {
+        if(!userExists){
+            return{
+                statusCode: 409,
+                data: "Voluntário não encontrado"
+            }
+        }
+
+        const volunteer = await VolunteerRepository.deleteVolunteer(email)
+        return {
+            statusCode: 200,
+            data: "Voluntário deletado com sucesso" 
+        }
+    } catch (error) {
+        return {
+            statusCode: 500,
+            data: error
+        }
+    }
+}
+
 module.exports = {
-    signUp, findVolunteers, findVolunteerByEmail
+    signUp, 
+    findVolunteers, 
+    findVolunteerByEmail,
+    deleteVolunteer
 }
