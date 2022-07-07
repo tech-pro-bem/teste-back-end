@@ -33,8 +33,6 @@ const login = (req, res) => {
         }
         const token = jwt.sign({ adminEmail: admin.email }, SECRET);
 
-        AdminSchema.findByIdAndUpdate(admin.email, { token });
-
         return res.status(200).json({
           message: 'Login authorized.',
           email: admin.email,
