@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const volunteerSchema = new mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: {
+    type: mongoose.Types.ObjectId,
+    default: mongoose.Types.ObjectId,
+  },
   email: {
     type: String,
     required: true,
@@ -31,7 +34,6 @@ const volunteerSchema = new mongoose.Schema({
   university: String,
   semester: {
     type: String,
-    required: true,
     enum: {
       FIRST: '1',
       SECOND: '2',
@@ -60,7 +62,7 @@ const volunteerSchema = new mongoose.Schema({
       SABADO: 'SÁBADO',
     },
   },
-  timeOdExperience: {
+  timeOfExperience: {
     type: String,
     required: true,
   },
