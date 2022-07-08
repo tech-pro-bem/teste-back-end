@@ -9,6 +9,5 @@ const routes = Router();
 routes.post("/api/v1/users/create", (req, res) => userCreateFactory().save(req, res));
 routes.get("/api/v1/users/list", (req, res) => userFindFactory().find(req, res));
 routes.get("/api/v1/users/find_by_id", (req, res) => userFindFactory().findById(req, res));
-routes.get("/api/v1/users/find_by_email", (req, res) => userFindFactory().findByEmail(req, res));
 
 export { routes };

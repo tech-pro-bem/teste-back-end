@@ -26,15 +26,5 @@ export class UserFindController {
         }
     }
 
-    async findByEmail(req: Request, res: Response): Promise<Response> {
-        const { email } = req.body;
-        try {
-            const find = await this.userFindRepository.findByEmail(email)
-            return res.status(200).json(find);
-        } catch (err: any) {
-            return res.status(500).json({ error: err.message });
-        }
-    }
-
 }
 
