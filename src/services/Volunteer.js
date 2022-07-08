@@ -8,7 +8,7 @@ const signUp = async (body) => {
     try {
 
         if (volunteerExists) {
-            return{
+            return {
                 statusCode: 409,
                 data: "Voluntário já cadastrado"
             }
@@ -77,10 +77,10 @@ const findVolunteerByEmail = async (email) => {
 
 const deleteVolunteer = async (email) => {
     const userExists = await VolunteerRepository.findVolunteerByEmail(email);
-        
+
     try {
-        if(!userExists){
-            return{
+        if (!userExists) {
+            return {
                 statusCode: 409,
                 data: "Voluntário não encontrado"
             }
@@ -89,7 +89,7 @@ const deleteVolunteer = async (email) => {
         const volunteer = await VolunteerRepository.deleteVolunteer(email)
         return {
             statusCode: 200,
-            data: "Voluntário deletado com sucesso" 
+            data: "Voluntário deletado com sucesso"
         }
     } catch (error) {
         return {
@@ -99,9 +99,35 @@ const deleteVolunteer = async (email) => {
     }
 }
 
+const updatePassword = async (email, password) => {
+    const userExists = await VolunteerRepository.findVolunteerByEmail(email);
+
+    try {
+        if (!userExists) {
+            return {
+                statusCode: 409,
+                data: "Voluntário não encontrado"
+            }
+        }
+
+        const updatedPassword = await VolunteerRepository.updatePassword(email, password)
+        return {
+            statusCode: 200,
+            data: updatedPassword
+        }
+
+    } catch (error) {
+        return {
+            statusCode: 500,
+            data: error
+        }
+    }
+}
+
 module.exports = {
-    signUp, 
-    findVolunteers, 
+    signUp,
+    findVolunteers,
     findVolunteerByEmail,
-    deleteVolunteer
+    deleteVolunteer,
+    updatePassword
 }

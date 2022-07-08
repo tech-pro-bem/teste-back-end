@@ -6,5 +6,6 @@ routesVolunteer.post("/", VolunteerController.signUp);
 routesVolunteer.get("/", VolunteerController.findVolunteers)
 routesVolunteer.get("/:email", VolunteerController.findVolunteerByEmail)
 routesVolunteer.delete("/:email", VolunteerController.deleteVolunteer)
+routesVolunteer.patch("/:email", VolunteerController.updatePassword)
 
 module.exports = routesVolunteer;

@@ -16,9 +16,16 @@ const deleteVolunteer = async (email) => {
     return await VolunteerModel.findOneAndDelete({email: email})
 }
 
+const updatePassword = async (email, password) => {
+    const update = {"password": password};
+    const filter = {"email": email}
+    return await VolunteerModel.findOneAndUpdate(filter, update, {new: true})
+}
+
 module.exports = {
     signUp,
     findVolunteers,
     findVolunteerByEmail, 
-    deleteVolunteer
+    deleteVolunteer,
+    updatePassword
 }

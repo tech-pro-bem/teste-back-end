@@ -24,9 +24,17 @@ const deleteVolunteer = async (req, res) => {
     return res.status(response.statusCode).json(response.data)
 }
 
+const updatePassword = async (req, res) => {
+    const {email} = req.params;
+    const {password} = req.body;
+    const response = await VolunteerService.updatePassword(email, password);
+    return res.status(response.statusCode).json(response.data)
+}
+
 module.exports = {
     signUp, 
     findVolunteers, 
     findVolunteerByEmail,
-    deleteVolunteer
+    deleteVolunteer,
+    updatePassword
 }
