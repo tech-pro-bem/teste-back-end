@@ -1,6 +1,6 @@
 import {
   formatJSONResponse,
-  ValidatedEventAPIGatewayProxyEvent
+  ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/api-gateway";
 import { middyfy } from "@libs/lambda";
 import { v4 as uuidV4 } from "uuid";
@@ -9,17 +9,21 @@ import { dynamo } from "../../../database/DynamoDBClient";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
 
-const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
+  typeof schema
+> = async (event) => {
   const { phoneNumber, fullName, email } = event.body;
 
-  const volunteerExists = await dynamo.query({
-    TableName: "volunteers",
-    IndexName: "email_index",
-    KeyConditionExpression: "email = :email",
-    ExpressionAttributeValues: {
-      ":email": email
-    }
-  }).promise();
+  const volunteerExists = await dynamo
+    .query({
+      TableName: "volunteers",
+      IndexName: "email_index",
+      KeyConditionExpression: "email = :email",
+      ExpressionAttributeValues: {
+        ":email": email,
+      },
+    })
+    .promise();
 
   if (volunteerExists.Count > 0) {
     throw new BaseException("VolunteerExists", "Volunteer already exists!");
@@ -29,12 +33,15 @@ const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<typeof schema> 
     id: uuidV4(),
     email,
     fullName,
-    phoneNumber
+    phoneNumber,
   };
 
-  await dynamo.put({
-    TableName: "volunteers", Item: volunteerItem
-  }).promise();
+  await dynamo
+    .put({
+      TableName: "volunteers",
+      Item: volunteerItem,
+    })
+    .promise();
 
   return formatJSONResponse(201, volunteerItem);
 };

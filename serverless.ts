@@ -10,7 +10,7 @@ const serverlessConfiguration: AWS = {
   plugins: [
     "serverless-esbuild",
     "serverless-offline",
-    "serverless-dynamodb-local"
+    "serverless-dynamodb-local",
   ],
   provider: {
     name: "aws",
@@ -18,11 +18,11 @@ const serverlessConfiguration: AWS = {
     region,
     apiGateway: {
       minimumCompressionSize: 1024,
-      shouldStartNameWithService: true
+      shouldStartNameWithService: true,
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-      NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000"
+      NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
     iam: {
       role: {
@@ -30,11 +30,11 @@ const serverlessConfiguration: AWS = {
           {
             Effect: "Allow",
             Action: ["dynamodb:Query", "dynamodb:PutItem"],
-            Resource: `arn:aws:dynamodb:${region}:*:table/volunteers`
-          }
-        ]
-      }
-    }
+            Resource: `arn:aws:dynamodb:${region}:*:table/volunteers`,
+          },
+        ],
+      },
+    },
   },
   // import the function via paths
   functions: { createVolunteer },
@@ -44,8 +44,8 @@ const serverlessConfiguration: AWS = {
       stages: ["dev"],
       start: {
         inMemory: true,
-        migrate: true
-      }
+        migrate: true,
+      },
     },
     esbuild: {
       bundle: true,
@@ -55,8 +55,8 @@ const serverlessConfiguration: AWS = {
       target: "node14",
       define: { "require.resolve": undefined },
       platform: "node",
-      concurrency: 10
-    }
+      concurrency: 10,
+    },
   },
   resources: {
     Resources: {
@@ -66,40 +66,42 @@ const serverlessConfiguration: AWS = {
           TableName: "volunteers",
           ProvisionedThroughput: {
             ReadCapacityUnits: 5,
-            WriteCapacityUnits: 5
+            WriteCapacityUnits: 5,
           },
-          GlobalSecondaryIndexes: [{
-            IndexName: "email_index",
-            Projection: {
-              ProjectionType: "ALL"
+          GlobalSecondaryIndexes: [
+            {
+              IndexName: "email_index",
+              Projection: {
+                ProjectionType: "ALL",
+              },
+              KeySchema: [
+                {
+                  AttributeName: "email",
+                  KeyType: "HASH",
+                },
+              ],
             },
-            KeySchema: [
-              {
-                AttributeName: "email",
-                KeyType: "HASH"
-              }
-            ]
-          }],
+          ],
           AttributeDefinitions: [
             {
               AttributeName: "id",
-              AttributeType: "S"
+              AttributeType: "S",
             },
             {
               AttributeName: "email",
-              AttributeType: "S"
-            }
+              AttributeType: "S",
+            },
           ],
           KeySchema: [
             {
               AttributeName: "id",
-              KeyType: "HASH"
-            }
-          ]
-        }
-      }
-    }
-  }
+              KeyType: "HASH",
+            },
+          ],
+        },
+      },
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;

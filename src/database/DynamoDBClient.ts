@@ -1,12 +1,13 @@
 import { DynamoDB } from "aws-sdk";
 
-const localParams: DynamoDB.DocumentClient.DocumentClientOptions & DynamoDB.Types.ClientConfiguration = {
+const localParams: DynamoDB.DocumentClient.DocumentClientOptions &
+  DynamoDB.Types.ClientConfiguration = {
   region: "localhost",
   endpoint: "http://localhost:8000",
   credentials: {
     secretAccessKey: "local",
-    accessKeyId: "local"
-  }
+    accessKeyId: "local",
+  },
 };
 
 const isOffline = () => {
