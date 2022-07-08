@@ -7,7 +7,8 @@ import { UserUpdateService } from '../../service/users/UserUpdateService';
 
 
 export class UserUpdateController {
-    constructor(private userUpdateService: UserUpdateService) {
+    constructor(private userUpdateService: UserUpdateService,
+        private userFindService: UserFindService) {
     }
 
     async findByIdAndUpdate(req: Request, res: Response): Promise<Response> {
@@ -17,6 +18,7 @@ export class UserUpdateController {
 
             const data = { id, name, email, password }
 
+            await this.userFindService.findById(id);
             await this.userUpdateService.findByIdAndUpdate(data);
             return res.status(201).json();
         } catch (err: any) {
