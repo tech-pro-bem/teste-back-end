@@ -7,3 +7,9 @@ jspm_packages
 
 # esbuild directories
 .esbuild
+
+# Jetbrains configuration directory
+.idea
+
+# DynamoDB local
+.dynamodb
