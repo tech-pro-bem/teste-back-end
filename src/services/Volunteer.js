@@ -163,7 +163,8 @@ const updatePassword = async (email, password) => {
             }
         }
 
-        const updatedPassword = await VolunteerRepository.updatePassword(email, password)
+        const encryptedPassword = security.encrypt(password);
+        const updatedPassword = await VolunteerRepository.updatePassword(email, encryptedPassword)
         return {
             statusCode: 200,
             data: updatedPassword
