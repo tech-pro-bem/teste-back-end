@@ -1,6 +1,6 @@
-import User from "../entites/User";
-import { UserCreateRepository } from "../repositories/users/UserCreateRepository";
-import { UserInterface } from "../types/userTypes";
+import User from "../../entites/User";
+import { UserCreateRepository } from "../../repositories/users/UserCreateRepository";
+import { UserInterface } from "../../types/userTypes";
 
 
 class UserCreateService implements UserCreateRepository {
