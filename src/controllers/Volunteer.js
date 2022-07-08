@@ -2,8 +2,14 @@ const VolunteerService = require('../services/Volunteer');
 
 const signUp = async (req, res) => {
 
-    const volunteer = req.body;
-    const response = await VolunteerService.signUp(volunteer);
+    const {name, email, password} = req.body;
+    const response = await VolunteerService.signUp(name, email, password);
+    return res.status(response.statusCode).json(response.data);
+}
+
+const authenticate = async (req, res) => {
+    const {email, password} = req.body;
+    const response = await VolunteerService.authenticate(email, password);
     return res.status(response.statusCode).json(response.data);
 }
 
@@ -13,13 +19,13 @@ const findVolunteers = async (req, res) => {
 }
 
 const findVolunteerByEmail = async (req, res) => {
-    const {email} = req.params; 
+    const {email} = req.body; 
     const response = await VolunteerService.findVolunteerByEmail(email);
     return res.status(response.statusCode).json(response.data);
 }
 
 const deleteVolunteer = async (req, res) => {
-    const {email} = req.params;
+    const {email} = req.body;
     const response = await VolunteerService.deleteVolunteer(email);
     return res.status(response.statusCode).json(response.data)
 }
@@ -36,5 +42,6 @@ module.exports = {
     findVolunteers, 
     findVolunteerByEmail,
     deleteVolunteer,
-    updatePassword
+    updatePassword,
+    authenticate
 }

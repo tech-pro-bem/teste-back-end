@@ -9,13 +9,11 @@ app.use(express.json());
 app.use('/', indexRoutes);
 
 const mongoURL = process.env.MONGO_URL;
-console.log(mongoURL);
-
 
 mongoose.connect(mongoURL)
 .then(()=> {
     console.log("conectado ao banco de dados");
-    app.listen(3000);
+    app.listen(3001);
 })
 .catch((err) => console.log(err))
 

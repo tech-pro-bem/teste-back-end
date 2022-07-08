@@ -1,11 +1,14 @@
 const VolunteerRepository = require('../repositories/Volunteer');
+const security = require('../utils/security');
+const jwt = require('jsonwebtoken');
 
-const signUp = async (body) => {
-    const { name, email, password } = body;
+require('dotenv').config();
 
-    const volunteerExists = await VolunteerRepository.findVolunteerByEmail(email)
+const signUp = async (name, email, password) => {
 
     try {
+
+        const volunteerExists = await VolunteerRepository.findVolunteerByEmail(email);
 
         if (volunteerExists) {
             return {
@@ -20,14 +23,64 @@ const signUp = async (body) => {
                 data: "Não foi possível criar o cadastro de voluntário. Os parâmetros não foram inseridos corretamente"
             }
         }
+        const encryptedPassword = security.encrypt(password);
+        const volunteer = await VolunteerRepository.signUp(name, email, encryptedPassword);
 
-        const volunteer = await VolunteerRepository.signUp(body);
+        const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: 3000 });
+
+        const data = { auth: true, token: token, user: volunteer };
         return {
             statusCode: 200,
-            data: volunteer
+            data: data
         }
 
     } catch (error) {
+        console.error(error)
+        return {
+            statusCode: 500,
+            data: error
+        }
+    }
+}
+
+const authenticate = async (email, password) => {
+    try {
+        const volunteer = await VolunteerRepository.findVolunteerByEmail(email);
+        console.log(volunteer)
+
+        if (volunteer) {
+            const hash = volunteer.password;
+            const verifyPassword = security.verifyPassword(password, hash);
+            if (!verifyPassword) {
+                return {
+                    statusCode: 500,
+                    data: "senha inválida"
+                }
+            }
+        } else {
+            return {
+                statusCode: 400,
+                data: "Voluntário não encontrado"
+            }
+        }
+
+        if (!(email && password)) {
+            return {
+                statusCode: 400,
+                data: "Email ou Senha não informado"
+            }
+        }
+
+        const token = jwt.sign({ email: email }, process.env.SECRET_KEY, { expiresIn: 3000 });
+
+        const data = { auth: true, token: token, user: volunteer };
+        return {
+            statusCode: 200,
+            data: data
+        }
+
+    } catch (error) {
+        console.log(error)
         return {
             statusCode: 500,
             data: error
@@ -129,5 +182,6 @@ module.exports = {
     findVolunteers,
     findVolunteerByEmail,
     deleteVolunteer,
-    updatePassword
+    updatePassword, 
+    authenticate
 }

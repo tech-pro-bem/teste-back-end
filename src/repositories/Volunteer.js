@@ -1,11 +1,11 @@
 const VolunteerModel = require('../models/Volunteer');
 
-const signUp = async (body) => {
-    return await VolunteerModel.create(body)
+const signUp = async (name, email, password) => {
+    return await VolunteerModel.create({name, email, password})
 }
 
 const findVolunteers = async () => {
-    return await VolunteerModel.find()
+    return await VolunteerModel.find();
 }
 
 const findVolunteerByEmail = async (email) => {
