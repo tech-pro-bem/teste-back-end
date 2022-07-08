@@ -9,13 +9,7 @@ class UserFindService implements UserFindRepository {
     }
 
     async findById(id: string) {
-        const find = await User.findById({ _id: id });
-
-        if (find) {
-            find.password = '';
-        }
-
-        return find;
+        return await User.findById({ _id: id });
     }
 
 
