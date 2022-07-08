@@ -1,6 +1,7 @@
 import type { AWS } from "@serverless/typescript";
 
 import createVolunteer from "@functions/volunteers/createVolunteer/";
+import findVolunteer from "@functions/volunteers/findVolunteer/";
 
 export const region = "sa-east-1";
 
@@ -37,7 +38,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { createVolunteer },
+  functions: { createVolunteer, findVolunteer },
   package: { individually: true },
   custom: {
     dynamodb: {
@@ -73,6 +74,10 @@ const serverlessConfiguration: AWS = {
               IndexName: "email_index",
               Projection: {
                 ProjectionType: "ALL",
+              },
+              ProvisionedThroughput: {
+                ReadCapacityUnits: 5,
+                WriteCapacityUnits: 5,
               },
               KeySchema: [
                 {
