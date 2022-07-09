@@ -2,6 +2,8 @@ import type { AWS } from "@serverless/typescript";
 
 import createVolunteer from "@functions/volunteers/createVolunteer/";
 import findVolunteer from "@functions/volunteers/findVolunteer/";
+import deleteVolunteer from "@functions/volunteers/deleteVolunteer/";
+import updateVolunteer from "@functions/volunteers/updateVolunteer/";
 
 export const region = "sa-east-1";
 
@@ -38,7 +40,12 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { createVolunteer, findVolunteer },
+  functions: {
+    createVolunteer,
+    findVolunteer,
+    deleteVolunteer,
+    updateVolunteer,
+  },
   package: { individually: true },
   custom: {
     dynamodb: {
