@@ -6,3 +6,8 @@ export interface UserInterface {
     created_at?: Date;
     updated_at?: Date;
 }
+
+export interface ISignIn {
+    email: string;
+    password: string;
+}
