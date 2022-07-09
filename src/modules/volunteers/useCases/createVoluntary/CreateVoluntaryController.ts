@@ -4,11 +4,10 @@ import { CreateVoluntaryUseCase } from "./CreateVoluntaryUseCase";
 
 class CreateVoluntaryController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { name, email } = request.body;
     const voluntary = container.resolve(CreateVoluntaryUseCase);
 
     try {
-      await voluntary.execute({ name, email });
+      await voluntary.execute(request.body);
 
       return response.status(201).send();
     } catch (err) {

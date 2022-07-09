@@ -1,4 +1,4 @@
-interface IVolunteersDTO {
+interface IRequest {
   email?: string;
   name?: string;
   birthdate?: string;
@@ -14,4 +14,4 @@ interface IVolunteersDTO {
   howDidKnowOfSDR?: string;
 }
 
-export { IVolunteersDTO };
+export { IRequest };

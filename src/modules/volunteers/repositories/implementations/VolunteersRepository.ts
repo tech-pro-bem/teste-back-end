@@ -1,32 +1,30 @@
-import mongoose from 'mongoose';
+import mongoose, { ObjectId } from 'mongoose';
 import { IVolunteersRepository } from '../IVolunteersRepository';
-import { IVoluntary, VoluntaryModel } from '../../schemas/Voluntary.schema';
+import { VoluntaryModel } from '../../schemas/Voluntary.schema';
 import { IVolunteersDTO } from '../../dtos/IVolunteersDTO';
 
 class VolunteersRepository implements IVolunteersRepository{
-  private repository: mongoose.Model<IVoluntary>
+  private repository: mongoose.Model<IVolunteersDTO>;
 
   constructor() {
     this.repository = VoluntaryModel
   }
 
-  async create({ name, email }: IVolunteersDTO): Promise<void> {
-    const voluntary = await this.repository.create({
-      name,
-      email,
-    })
+  async create(data: IVolunteersDTO): Promise<void> {
+    const voluntary = await this.repository.create(data);
 
     await voluntary.save();
   }
-  async list(email: string): Promise<mongoose.Document>{
+  async findByEmail(email: string): Promise<mongoose.Document<any>>{
     const voluntary = await this.repository.findOne({ email })
     return voluntary;
   }
-  update({ name, email }: IVolunteersDTO): Promise<void> {
-    throw new Error('Method not implemented.');
+  async update(data: IVolunteersDTO): Promise<void> {
+    const voluntary = await this.findByEmail(data.email);
+    await voluntary.updateOne(data);
   }
-  delete(): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: ObjectId): Promise<void> {
+    await this.repository.deleteOne({ _id: id });
   }
 
 }

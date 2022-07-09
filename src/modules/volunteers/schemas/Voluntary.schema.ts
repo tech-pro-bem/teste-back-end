@@ -1,25 +1,27 @@
 import mongoose, { Schema , model} from 'mongoose';
-import { Voluntary } from '../entity/Voluntary';
+import { IVoluntaryModel } from '../interfaces/IVoluntaryModel';
 
-interface IVoluntary {
-  id: string;
-  created_at: Date;
-  updated_at: Date;
-  email: string;
-  name: string;
-}
 
-const VoluntarySchema = new Schema<IVoluntary>({
-  id: String,
-  created_at: Date,
+const VoluntarySchema = new Schema<IVoluntaryModel>({
+  id: {
+    type: String,
+    required: false
+  },
+  created_at: {
+    type: Date
+  },
   updated_at: Date,
-  email: String,
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   name: {
     type: String,
      required:false
   },
   birthdate: {
-    type: Date,
+    type: String,
     required: true
   },
   cellphone: {
@@ -43,7 +45,7 @@ const VoluntarySchema = new Schema<IVoluntary>({
     required: true
   },
   listFreeDaysOfWeek: {
-    type: Array,
+    type: [String],
     required: true
   },
   numberOfFreeDaysOfWeek: {
@@ -63,6 +65,6 @@ const VoluntarySchema = new Schema<IVoluntary>({
     required: true
   },
 })
-VoluntarySchema.loadClass(Voluntary)
-const VoluntaryModel = model<IVoluntary>('voluntary', VoluntarySchema);
-export { VoluntaryModel, IVoluntary };
+
+const VoluntaryModel = model<IVoluntaryModel>('voluntary', VoluntarySchema);
+export { VoluntaryModel };

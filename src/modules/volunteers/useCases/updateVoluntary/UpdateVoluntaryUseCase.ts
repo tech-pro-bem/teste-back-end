@@ -3,7 +3,7 @@ import { IRequest } from "../../interfaces/IRequest";
 import { IVolunteersRepository } from "../../repositories/IVolunteersRepository";
 
 @injectable()
-class CreateVoluntaryUseCase {
+class UpdateVoluntaryUseCase {
   constructor(
     @inject('VolunteersRepository')
     private volunteersRepository: IVolunteersRepository
@@ -12,12 +12,12 @@ class CreateVoluntaryUseCase {
   async execute(data: IRequest): Promise<void> {
     const voluntaryAlreadyExists = await this.volunteersRepository.findByEmail(data.email);
 
-    if(voluntaryAlreadyExists) {
-      throw new Error('Already Exists!');
+    if (!voluntaryAlreadyExists) {
+      throw new Error('Voluntary Email not Found!');
     }
 
-    await this.volunteersRepository.create(data)
+    await this.volunteersRepository.update(data);
   }
 }
 
-export { CreateVoluntaryUseCase };
+export { UpdateVoluntaryUseCase }

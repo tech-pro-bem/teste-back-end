@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
-
-interface IVolunteers {
-
+interface IVoluntaryModel {
+  id?: string;
+  created_at?: Date;
+  updated_at?: Date;
   email?: string;
   name?: string;
-  /*birthdate?: Date;
+  birthdate?: string;
   cellphone?: string;
   occupation?: string;
   university?: string;
@@ -13,8 +13,8 @@ interface IVolunteers {
   listFreeDaysOfWeek?: Array<string>;
   numberOfFreeDaysOfWeek?: number;
   timeOfExperience?: string;
-  howMuchParticipate?: number;
-  howDidKnowOfSDR?: string;*/
+  howMuchParticipate?: string;
+  howDidKnowOfSDR?: string;
 }
 
-export default interface IVolunteersSI extends IVolunteers, mongoose.Document {};
+export { IVoluntaryModel };
