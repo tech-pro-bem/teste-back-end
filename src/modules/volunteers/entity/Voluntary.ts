@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
-class Voluntary{
-
+class Voluntary {
+  
   readonly id?: string;
   readonly created_At?: Date;
   updated_At?: Date;
