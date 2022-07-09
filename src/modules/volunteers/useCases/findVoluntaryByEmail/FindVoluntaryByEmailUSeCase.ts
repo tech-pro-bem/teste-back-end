@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-import { IVolunteersRepository } from '../../repositories/IVolunteersRepository';
+import { IVolunteersRepository } from '../../interfaces/IVolunteersRepository';
 import mongoose from 'mongoose';
 
 @injectable()

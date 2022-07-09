@@ -1,11 +1,11 @@
-import mongoose, { ObjectId } from 'mongoose';
-import { IVolunteersRepository } from '../IVolunteersRepository';
-import { Voluntary } from '../../schemas/voluntary/Voluntary.schema';
-import { IVolunteersDTO } from '../../dtos/IVolunteersDTO';
-import { IVoluntarySchema } from '../../schemas/voluntary/IVoluntarySchema';
+import mongoose, { Document, ObjectId } from 'mongoose';
+import { IVolunteersRepository } from '../interfaces/IVolunteersRepository';
+import { Voluntary } from '../schemas/voluntary/Voluntary.schema';
+import { IVolunteersDTO } from '../dtos/IVolunteersDTO';
+import { IVoluntary} from '../interfaces/IVoluntary';
 
 class VolunteersRepository implements IVolunteersRepository{
-  private repository: mongoose.Model<IVoluntarySchema>;
+  private repository: mongoose.Model<IVoluntary>;
 
   constructor() {
     this.repository = Voluntary
@@ -16,8 +16,8 @@ class VolunteersRepository implements IVolunteersRepository{
 
     await voluntary.save();
   }
-  
-  async findByEmail(email: string): Promise<mongoose.Document<unknown, any, IVoluntarySchema>>{
+
+  async findByEmail(email: IVoluntary['email']): Promise<IVoluntary>{
     const voluntary = await this.repository.findOne({ email })
     return voluntary;
   }
@@ -27,7 +27,7 @@ class VolunteersRepository implements IVolunteersRepository{
     await voluntary.updateOne(data);
   }
 
-  async delete(id: ObjectId): Promise<void> {
+  async delete(id: IVoluntary['id']): Promise<void> {
     await this.repository.deleteOne({ _id: id });
   }
 

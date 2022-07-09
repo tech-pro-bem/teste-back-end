@@ -1,4 +1,10 @@
-interface IRequest {
+import { Document, ObjectId } from "mongoose";
+
+interface IVoluntary extends Document{
+  id?: ObjectId;
+  admin?: boolean;
+  created_at: Date;
+  updated_at?: Date;
   email: string;
   name: string;
   birthdate: string;
@@ -12,6 +18,7 @@ interface IRequest {
   timeOfExperience: string;
   howMuchParticipate: string;
   howDidKnowOfSDR: string;
+  password?: string;
 }
 
-export { IRequest };
+export { IVoluntary };

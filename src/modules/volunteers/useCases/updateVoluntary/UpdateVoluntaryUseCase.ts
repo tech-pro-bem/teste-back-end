@@ -1,6 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IRequest } from "../../interfaces/IRequest";
-import { IVolunteersRepository } from "../../repositories/IVolunteersRepository";
+import { IUpdateVoluntaryDTO } from "../../dtos/IUpdadeVoluntary";
+import { IVolunteersRepository } from "../../interfaces/IVolunteersRepository";
 
 @injectable()
 class UpdateVoluntaryUseCase {
@@ -9,7 +9,7 @@ class UpdateVoluntaryUseCase {
     private volunteersRepository: IVolunteersRepository
   ) {}
 
-  async execute(data: IRequest): Promise<void> {
+  async execute(data: IUpdateVoluntaryDTO): Promise<void> {
     const voluntaryAlreadyExists = await this.volunteersRepository.findByEmail(data.email);
 
     if (!voluntaryAlreadyExists) {

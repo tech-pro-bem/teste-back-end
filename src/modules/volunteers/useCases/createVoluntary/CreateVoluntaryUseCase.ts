@@ -1,6 +1,9 @@
 import { inject, injectable } from "tsyringe";
-import { IRequest } from "../../interfaces/IRequest";
-import { IVolunteersRepository } from "../../repositories/IVolunteersRepository";
+import { IVolunteersRepository } from "../../interfaces/IVolunteersRepository";
+import { hash } from 'bcryptjs';
+import { ICreateVoluntaryDTO } from "../../dtos/ICreateVoluntary";
+
+
 
 @injectable()
 class CreateVoluntaryUseCase {
@@ -9,12 +12,14 @@ class CreateVoluntaryUseCase {
     private volunteersRepository: IVolunteersRepository
   ) {}
 
-  async execute(data: IRequest): Promise<void> {
+  async execute(data: ICreateVoluntaryDTO ): Promise<void> {
     const voluntaryAlreadyExists = await this.volunteersRepository.findByEmail(data.email);
 
     if(voluntaryAlreadyExists) {
       throw new Error('Already Exists!');
     }
+
+    data.password = await hash(data.password, 8);
 
     await this.volunteersRepository.create(data)
   }

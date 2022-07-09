@@ -1,12 +1,12 @@
 import { IVolunteersDTO } from '../dtos/IVolunteersDTO';
 import mongoose, { ObjectId } from 'mongoose';
-import { IVoluntarySchema } from '../schemas/voluntary/IVoluntarySchema';
+import { IVoluntary } from './IVoluntary';
 
 interface IVolunteersRepository {
   create(data: IVolunteersDTO): Promise<void>;
-  findByEmail(email: string): Promise<mongoose.Document<unknown, any, IVoluntarySchema>>;
+  findByEmail(email: IVoluntary['email']): Promise<IVoluntary>;
   update({ name, email }: IVolunteersDTO): Promise<void>;
-  delete(id: ObjectId): Promise<void>
+  delete(id: IVoluntary['id']): Promise<void>
 }
 
 export { IVolunteersRepository };

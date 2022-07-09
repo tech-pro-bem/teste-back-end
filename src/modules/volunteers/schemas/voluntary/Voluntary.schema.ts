@@ -1,7 +1,7 @@
 import { Schema , model} from 'mongoose';
-import { IVoluntarySchema } from './IVoluntarySchema';
+import { IVoluntary } from '../../interfaces/IVoluntary';
 
-const VoluntarySchema = new Schema<IVoluntarySchema>({
+const VoluntarySchema: Schema = new Schema({
   id: {
     type: String,
     required: false,
@@ -24,6 +24,10 @@ const VoluntarySchema = new Schema<IVoluntarySchema>({
     type: String,
     required: true,
     unique: true
+  },
+  password:{
+    type: String,
+    required: true
   },
   name: {
     type: String,
@@ -75,5 +79,5 @@ const VoluntarySchema = new Schema<IVoluntarySchema>({
   },
 })
 
-const Voluntary= model<IVoluntarySchema>('voluntary', VoluntarySchema);
+const Voluntary= model<IVoluntary>('voluntary', VoluntarySchema);
 export { Voluntary };

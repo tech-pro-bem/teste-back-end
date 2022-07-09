@@ -1,7 +1,6 @@
 import { IVoluntary } from "../interfaces/IVoluntary";
 
-interface IVolunteersDTO {
-  
+interface IUpdateVoluntaryDTO {
   email: IVoluntary['email'];
   name: IVoluntary['name'];
   password: IVoluntary['password'];
@@ -18,4 +17,4 @@ interface IVolunteersDTO {
   howDidKnowOfSDR: IVoluntary['howDidKnowOfSDR'];
 }
 
-export { IVolunteersDTO };
+export { IUpdateVoluntaryDTO };

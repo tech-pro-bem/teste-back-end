@@ -1,5 +1,5 @@
 import { inject, injectable } from "tsyringe";
-import { IVolunteersRepository } from "../../repositories/IVolunteersRepository";
+import { IVolunteersRepository } from "../../interfaces/IVolunteersRepository";
 
 @injectable()
 class DeleteVoluntaryUseCase {
@@ -14,7 +14,7 @@ class DeleteVoluntaryUseCase {
       throw new Error('Voluntary Not Exists!');
     }
 
-    await this.volunteersRepository.delete(voluntaryAlreadyExists._id)
+    await this.volunteersRepository.delete(voluntaryAlreadyExists.id)
   }
 }
 
