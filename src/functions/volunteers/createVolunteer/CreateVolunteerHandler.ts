@@ -6,7 +6,7 @@ import { middyfy } from "@libs/lambda";
 import { v4 as uuidV4 } from "uuid";
 import schema from "@functions/volunteers/createVolunteer/CreateVolunteerSchema";
 import { dynamo } from "../../../database/DynamoDBClient";
-import { hash } from "bcrypt";
+import { hash } from "bcryptjs";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
 
@@ -19,9 +19,11 @@ const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
     .query({
       TableName: "users",
       IndexName: "email_index",
+      FilterExpression: "sk = :sk",
       KeyConditionExpression: "email = :email",
       ExpressionAttributeValues: {
         ":email": email,
+        ":sk": "volunteer",
       },
     })
     .promise();
@@ -34,14 +36,17 @@ const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
     id: uuidV4(),
     email,
     fullName,
-    password: hash(password, 8),
     phoneNumber,
   };
 
   await dynamo
     .put({
       TableName: "users",
-      Item: volunteerItem,
+      Item: {
+        ...volunteerItem,
+        sk: "volunteer",
+        password: await hash(password, 8),
+      },
     })
     .promise();
 

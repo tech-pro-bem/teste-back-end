@@ -100,6 +100,10 @@ const serverlessConfiguration: AWS = {
               AttributeType: "S",
             },
             {
+              AttributeName: "sk",
+              AttributeType: "S",
+            },
+            {
               AttributeName: "email",
               AttributeType: "S",
             },
@@ -108,6 +112,10 @@ const serverlessConfiguration: AWS = {
             {
               AttributeName: "id",
               KeyType: "HASH",
+            },
+            {
+              AttributeName: "sk",
+              KeyType: "RANGE",
             },
           ],
         },
