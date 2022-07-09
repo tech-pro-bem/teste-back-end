@@ -4,12 +4,14 @@ import createVolunteer from "@functions/volunteers/createVolunteer/";
 import findVolunteer from "@functions/volunteers/findVolunteer/";
 import deleteVolunteer from "@functions/volunteers/deleteVolunteer/";
 import updateVolunteer from "@functions/volunteers/updateVolunteer/";
+import loginAdmin from "@functions/authentication/loginAdmin";
 
 export const region = "sa-east-1";
 
 const serverlessConfiguration: AWS = {
   service: "teste-back-end",
   frameworkVersion: "3",
+  useDotenv: true,
   plugins: [
     "serverless-esbuild",
     "serverless-offline",
@@ -45,6 +47,7 @@ const serverlessConfiguration: AWS = {
     findVolunteer,
     deleteVolunteer,
     updateVolunteer,
+    loginAdmin,
   },
   package: { individually: true },
   custom: {
@@ -53,6 +56,17 @@ const serverlessConfiguration: AWS = {
       start: {
         inMemory: true,
         migrate: true,
+        seed: true,
+      },
+      seed: {
+        admins: {
+          sources: [
+            {
+              table: "users",
+              sources: ["./src/database/seeders/AdminSeeder.json"],
+            },
+          ],
+        },
       },
     },
     esbuild: {
