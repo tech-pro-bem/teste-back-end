@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
-import mongoose from 'mongoose';
+import 'dotenv/config';
 import './shared/container';
 import { router } from './routes';
 import { createConnection } from './database';
@@ -13,7 +13,7 @@ createConnection();
 
 app.use(router);
 
-app.listen(3333, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server started on port 3333');
 })
 
