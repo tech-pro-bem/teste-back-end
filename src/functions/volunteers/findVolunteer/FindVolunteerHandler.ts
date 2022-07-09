@@ -6,6 +6,7 @@ import {
 import { dynamo } from "../../../database/DynamoDBClient";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
+import { IVolunteer, VolunteerMapper } from "../../../mappers/VolunteerMapper";
 
 const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
   event
@@ -16,7 +17,6 @@ const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
     .query({
       TableName: "users",
       KeyConditionExpression: "id = :id",
-      ProjectionExpression: "fullName,email,id,phoneNumber",
       ExpressionAttributeValues: {
         ":id": id,
       },
@@ -27,7 +27,10 @@ const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
     throw new BaseException("VolunteerNotFound", "Volunteer not found!", 404);
   }
 
-  return formatJSONResponse(200, volunteer.Items[0]);
+  return formatJSONResponse(
+    200,
+    VolunteerMapper.toMapper(volunteer.Items[0] as IVolunteer)
+  );
 };
 
 export const handle = middyfy(findVolunteerHandler).onError(errorHandler);

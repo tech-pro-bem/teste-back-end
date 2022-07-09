@@ -9,6 +9,7 @@ import { dynamo } from "../../../database/DynamoDBClient";
 import { hash } from "bcryptjs";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
+import { VolunteerMapper } from "../../../mappers/VolunteerMapper";
 
 const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   typeof schema
@@ -36,6 +37,8 @@ const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
     id: uuidV4(),
     email,
     fullName,
+    password: await hash(password, 8),
+    sk: "volunteer",
     phoneNumber,
   };
 
@@ -44,13 +47,11 @@ const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
       TableName: "users",
       Item: {
         ...volunteerItem,
-        sk: "volunteer",
-        password: await hash(password, 8),
       },
     })
     .promise();
 
-  return formatJSONResponse(201, volunteerItem);
+  return formatJSONResponse(201, VolunteerMapper.toMapper(volunteerItem));
 };
 
 export const handle = middyfy(createVolunteerHandler).onError(errorHandler);

@@ -8,6 +8,7 @@ import updateVolunteerSchema from "@functions/volunteers/updateVolunteer/UpdateV
 import { middyfy } from "@libs/lambda";
 import { dynamicQueryItemUpdate } from "../../../utils/DynamicQueryItemUpdate";
 import { errorHandler } from "../../../utils/ErrorHandler";
+import { IVolunteer, VolunteerMapper } from "../../../mappers/VolunteerMapper";
 
 const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   typeof updateVolunteerSchema
@@ -38,13 +39,16 @@ const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   const volunteerUpdated = await dynamo
     .update({
       TableName: "users",
-      Key: { id },
+      Key: { id, sk: "volunteer" },
       ...query,
       ReturnValues: "ALL_NEW",
     })
     .promise();
 
-  return formatJSONResponse(200, { ...volunteerUpdated.Attributes });
+  return formatJSONResponse(
+    200,
+    VolunteerMapper.toMapper(volunteerUpdated.Attributes as IVolunteer)
+  );
 };
 
 export const handle = middyfy(updateVolunteerHandler).onError(errorHandler);
