@@ -1,16 +1,25 @@
-import mongoose, { Schema , model} from 'mongoose';
-import { IVoluntaryModel } from '../interfaces/IVoluntaryModel';
+import { Schema , model} from 'mongoose';
+import { IVoluntarySchema } from './IVoluntarySchema';
 
-
-const VoluntarySchema = new Schema<IVoluntaryModel>({
+const VoluntarySchema = new Schema<IVoluntarySchema>({
   id: {
     type: String,
-    required: false
+    required: false,
+  },
+  admin: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
   created_at: {
-    type: Date
+    type: Date,
+    required: true,
+    default: Date.now
   },
-  updated_at: Date,
+  updated_at: {
+    type: Date,
+    required: false
+  },
   email: {
     type: String,
     required: true,
@@ -18,7 +27,7 @@ const VoluntarySchema = new Schema<IVoluntaryModel>({
   },
   name: {
     type: String,
-     required:false
+     required:true
   },
   birthdate: {
     type: String,
@@ -66,5 +75,5 @@ const VoluntarySchema = new Schema<IVoluntaryModel>({
   },
 })
 
-const VoluntaryModel = model<IVoluntaryModel>('voluntary', VoluntarySchema);
-export { VoluntaryModel };
+const Voluntary= model<IVoluntarySchema>('voluntary', VoluntarySchema);
+export { Voluntary };

@@ -1,4 +1,8 @@
-interface IVolunteersDTO {
+interface IVoluntarySchema {
+  id?: string;
+  admin?: boolean;
+  created_at: Date;
+  updated_at?: Date;
   email: string;
   name: string;
   birthdate: string;
@@ -14,4 +18,4 @@ interface IVolunteersDTO {
   howDidKnowOfSDR: string;
 }
 
-export { IVolunteersDTO };
+export { IVoluntarySchema };
