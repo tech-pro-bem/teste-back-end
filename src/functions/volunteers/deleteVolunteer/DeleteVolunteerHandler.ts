@@ -14,7 +14,7 @@ const deleteVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
 
   const volunteerExists = await dynamo
     .query({
-      TableName: "volunteers",
+      TableName: "users",
       KeyConditionExpression: "id = :id",
       ExpressionAttributeValues: {
         ":id": id,
@@ -26,9 +26,9 @@ const deleteVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
     throw new BaseException("VolunteerNotFound", "Volunteer not found!", 404);
   }
 
-  await dynamo.delete({ TableName: "volunteers", Key: { id } }).promise();
+  await dynamo.delete({ TableName: "users", Key: { id } }).promise();
 
-  return formatJSONResponse(200, {});
+  return formatJSONResponse(204, {});
 };
 
 export const handle = middyfy(deleteVolunteerHandler).onError(errorHandler);

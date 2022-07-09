@@ -17,7 +17,7 @@ const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
 
   const volunteerExists = await dynamo
     .query({
-      TableName: "volunteers",
+      TableName: "users",
       KeyConditionExpression: "id = :id",
       ExpressionAttributeValues: {
         ":id": id,
@@ -37,7 +37,7 @@ const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
 
   const volunteerUpdated = await dynamo
     .update({
-      TableName: "volunteers",
+      TableName: "users",
       Key: { id },
       ...query,
       ReturnValues: "ALL_NEW",

@@ -33,7 +33,7 @@ const serverlessConfiguration: AWS = {
           {
             Effect: "Allow",
             Action: ["dynamodb:Query", "dynamodb:PutItem"],
-            Resource: `arn:aws:dynamodb:${region}:*:table/volunteers`,
+            Resource: `arn:aws:dynamodb:${region}:*:table/users`,
           },
         ],
       },
@@ -71,7 +71,7 @@ const serverlessConfiguration: AWS = {
       volunteersChallenge: {
         Type: "AWS::DynamoDB::Table",
         Properties: {
-          TableName: "volunteers",
+          TableName: "users",
           ProvisionedThroughput: {
             ReadCapacityUnits: 5,
             WriteCapacityUnits: 5,

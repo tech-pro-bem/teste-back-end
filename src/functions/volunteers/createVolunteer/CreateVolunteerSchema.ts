@@ -3,7 +3,8 @@ export default {
   properties: {
     fullName: { type: "string" },
     email: { type: "string" },
+    password: { type: "string" },
     phoneNumber: { type: "string" },
   },
-  required: ["fullName", "email", "phoneNumber"],
+  required: ["fullName", "email", "phoneNumber", "password"],
 } as const;

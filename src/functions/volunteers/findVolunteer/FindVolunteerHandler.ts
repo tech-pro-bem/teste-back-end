@@ -14,8 +14,9 @@ const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
 
   const volunteer = await dynamo
     .query({
-      TableName: "volunteers",
+      TableName: "users",
       KeyConditionExpression: "id = :id",
+      ProjectionExpression: "fullName,email,id,phoneNumber",
       ExpressionAttributeValues: {
         ":id": id,
       },
