@@ -15,7 +15,6 @@ server.use(express.urlencoded({ extended: true }));
 server.use(routes);
 
 
-export { server }
-// server.listen(port, () => {
-//     console.log(`listening on port ${port}`)
-// })
+server.listen(port, () => {
+    console.log(`listening on port ${port}`)
+})
