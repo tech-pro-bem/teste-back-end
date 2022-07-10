@@ -10,6 +10,7 @@ import { hash } from "bcryptjs";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
 import { VolunteerMapper } from "../../../mappers/VolunteerMapper";
+import { loginAdminMiddleware } from "@functions/authentication/loginAdmin/LoginAdminMiddleware";
 
 const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   typeof schema
@@ -54,4 +55,6 @@ const createVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   return formatJSONResponse(201, VolunteerMapper.toMapper(volunteerItem));
 };
 
-export const handle = middyfy(createVolunteerHandler).onError(errorHandler);
+export const handle = middyfy(createVolunteerHandler)
+  .onError(errorHandler)
+  .use(loginAdminMiddleware);

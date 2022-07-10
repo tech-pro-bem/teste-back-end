@@ -1,28 +1,41 @@
 import { verify } from "jsonwebtoken";
-import { generatePolicy } from "../../../utils/GeneratePolicy";
-import { MiddlewareObj, MiddyfiedHandler } from "@middy/core";
+import { MiddlewareObj } from "@middy/core";
 import { formatJSONResponse } from "@libs/api-gateway";
+
+export interface IUserAuth {
+  email: string;
+  sub: string;
+}
 
 export const loginAdminMiddleware: MiddlewareObj = {
   before: ({ event }) => {
     const authorizationHeader = event.headers["Authorization"];
 
     if (!authorizationHeader) {
-      return formatJSONResponse(400, {});
+      return formatJSONResponse(401, {
+        errorName: "MissingAuthHeader",
+        message: "Authorization failed",
+      });
     }
 
     const [, token] = authorizationHeader.split(" ");
 
     if (!token) {
-      return formatJSONResponse(400, {});
+      return formatJSONResponse(401, {
+        errorName: "MissingToken",
+        message: "Authorization failed",
+      });
     }
 
     try {
-      //const decoded = verify(token, process.env.JWT_SECRET);
+      const decoded = verify(token, process.env.JWT_SECRET) as IUserAuth;
 
-      return { hello: true };
+      event.user = { email: decoded.email, sub: decoded.sub };
     } catch (error) {
-      return formatJSONResponse(400, {});
+      return formatJSONResponse(400, {
+        errorName: "InvalidToken",
+        message: "Authorization expired",
+      });
     }
   },
 };

@@ -7,6 +7,7 @@ import { dynamo } from "../../../database/DynamoDBClient";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
 import { IVolunteer, VolunteerMapper } from "../../../mappers/VolunteerMapper";
+import { loginAdminMiddleware } from "../../authentication/loginAdmin/LoginAdminMiddleware";
 
 const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
   event
@@ -16,9 +17,10 @@ const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
   const volunteer = await dynamo
     .query({
       TableName: "users",
-      KeyConditionExpression: "id = :id",
+      KeyConditionExpression: "id = :id AND sk = :sk",
       ExpressionAttributeValues: {
         ":id": id,
+        ":sk": "volunteer",
       },
     })
     .promise();
@@ -33,4 +35,6 @@ const findVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
   );
 };
 
-export const handle = middyfy(findVolunteerHandler).onError(errorHandler);
+export const handle = middyfy(findVolunteerHandler)
+  .onError(errorHandler)
+  .use(loginAdminMiddleware);

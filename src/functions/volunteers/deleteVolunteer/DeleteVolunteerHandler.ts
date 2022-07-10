@@ -6,6 +6,7 @@ import {
 import { dynamo } from "../../../database/DynamoDBClient";
 import { BaseException } from "../../../utils/BaseException";
 import { errorHandler } from "../../../utils/ErrorHandler";
+import { loginAdminMiddleware } from "../../authentication/loginAdmin/LoginAdminMiddleware";
 
 const deleteVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
   event
@@ -15,9 +16,10 @@ const deleteVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
   const volunteerExists = await dynamo
     .query({
       TableName: "users",
-      KeyConditionExpression: "id = :id",
+      KeyConditionExpression: "id = :id AND sk = :sk",
       ExpressionAttributeValues: {
         ":id": id,
+        ":sk": "volunteer",
       },
     })
     .promise();
@@ -26,9 +28,13 @@ const deleteVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<any> = async (
     throw new BaseException("VolunteerNotFound", "Volunteer not found!", 404);
   }
 
-  await dynamo.delete({ TableName: "users", Key: { id } }).promise();
+  await dynamo
+    .delete({ TableName: "users", Key: { id, sk: "volunteer" } })
+    .promise();
 
   return formatJSONResponse(204, {});
 };
 
-export const handle = middyfy(deleteVolunteerHandler).onError(errorHandler);
+export const handle = middyfy(deleteVolunteerHandler)
+  .onError(errorHandler)
+  .use(loginAdminMiddleware);

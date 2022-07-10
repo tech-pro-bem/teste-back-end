@@ -9,6 +9,7 @@ import { middyfy } from "@libs/lambda";
 import { dynamicQueryItemUpdate } from "../../../utils/DynamicQueryItemUpdate";
 import { errorHandler } from "../../../utils/ErrorHandler";
 import { IVolunteer, VolunteerMapper } from "../../../mappers/VolunteerMapper";
+import { loginAdminMiddleware } from "../../authentication/loginAdmin/LoginAdminMiddleware";
 
 const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   typeof updateVolunteerSchema
@@ -19,9 +20,10 @@ const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   const volunteerExists = await dynamo
     .query({
       TableName: "users",
-      KeyConditionExpression: "id = :id",
+      KeyConditionExpression: "id = :id AND sk = :sk",
       ExpressionAttributeValues: {
         ":id": id,
+        ":sk": "volunteer",
       },
     })
     .promise();
@@ -51,4 +53,6 @@ const updateVolunteerHandler: ValidatedEventAPIGatewayProxyEvent<
   );
 };
 
-export const handle = middyfy(updateVolunteerHandler).onError(errorHandler);
+export const handle = middyfy(updateVolunteerHandler)
+  .onError(errorHandler)
+  .use(loginAdminMiddleware);
