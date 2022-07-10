@@ -20,9 +20,7 @@ export class UserDataVerify extends UtilsUser {
         return this.errors;
     }
 
-    _clearErrors() {
-        this.errors = {};
-    }
+
 
     protected name(name: string) {
         if (name.trim().length < 1 || name.trim().length > 20) {
@@ -38,10 +36,6 @@ export class UserDataVerify extends UtilsUser {
     }
 
     protected async checkIsChangeEmail(email: string, actualEmail: string) {
-        const emailIsZeroLength = email.trim().length === 0;
-        const emailIsMalformated = this.regex.test(email) === false;
-
-
         if (email.trim().length === 0 || this.regex.test(email) === false) {
             console.log('email mal')
             this.errors.email = 'email está mal formatado';
