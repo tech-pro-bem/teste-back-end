@@ -5,9 +5,8 @@ import jwt from "jsonwebtoken";
 
 
 export class UtilsUser {
-    regex = new RegExp(
-        /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
-    );
+    regex = new RegExp("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$");
+
     async encodedPassword(password: string) {
         return await bcryptjs.hash(password, 10);
     }
@@ -21,15 +20,15 @@ export class UtilsUser {
 
     }
 
-    public checkRoleUser(userRole: string) {
+    public async checkRoleUser(userRole: string) {
         if (userRole !== IRole.user) {
-            throw Error("você não tem autorização, seu registro é: " + userRole)
+            throw new Error("você não tem autorização, seu registro é: " + userRole)
         }
     }
 
-    public checkRoleAdmin(userRole: string) {
+    public async checkRoleAdmin(userRole: string) {
         if (userRole !== IRole.admin) {
-            throw Error("você não tem autorização, seu registro é: " + userRole)
+            throw new Error("você não tem autorização, seu registro é: " + userRole)
         }
     }
 

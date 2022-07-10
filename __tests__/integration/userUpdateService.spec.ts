@@ -47,7 +47,7 @@ describe("[integration] - userUpdateService ", () => {
 
         const find = await userFindService.findById(String(newUser.id));
 
-        expect(newUser.email === find.email).toBeTruthy()
+        expect(newUser.email).toBe(find.email)
     });
 
     it("should fail in update user with wrong id", async () => {

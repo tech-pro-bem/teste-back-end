@@ -17,6 +17,7 @@ export class UserValidation extends UserDataVerify {
         await this.checkIsChangeEmail(values.email, user.email)
         this.name(values.name)
         this.password(values.password, String(values.confirm_password))
+
         return this.get();
     }
 

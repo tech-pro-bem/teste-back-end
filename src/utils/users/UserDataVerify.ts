@@ -14,10 +14,14 @@ export class UserDataVerify extends UtilsUser {
         super();
     }
 
-    private readonly errors = {} as IErrors;
+    private errors = {} as any;
 
     get() {
         return this.errors;
+    }
+
+    _clearErrors() {
+        this.errors = {};
     }
 
     protected name(name: string) {
@@ -37,8 +41,10 @@ export class UserDataVerify extends UtilsUser {
         const emailIsZeroLength = email.trim().length === 0;
         const emailIsMalformated = this.regex.test(email) === false;
 
-        if (emailIsZeroLength || emailIsMalformated) {
+        console.log({ emailIsZeroLength, emailIsMalformated })
 
+        if (email.trim().length === 0 || this.regex.test(email) === false) {
+            console.log('email mal')
             this.errors.email = 'email está mal formatado';
 
         } else if (email !== actualEmail) {

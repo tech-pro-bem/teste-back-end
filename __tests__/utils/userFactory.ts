@@ -6,22 +6,25 @@ export class userFactory {
     create() {
         return {
             confirm_password: '123456789',
-            email: `anderson${this.uui}@gmail.com`,
+            email: `${this.uui}anderson@gmail.com`,
             name: 'anderson',
             password: '123456789',
             created_at: new Date(),
             updated_at: new Date(),
+            role: IRole.user
         }
     }
 
     updateUser() {
         return {
-            confirm_password: 'sdsdadsasdasdasad',
-            email: `update${this.uui}@gmail.com`,
-            name: 'dssaddadsasda',
-            password: 'sdsdadsasdasdasad',
+            confirm_password: '123456789',
+            email: `${this.uui}anderson@gmail.com`,
+            name: 'anderson',
+            password: '123456789',
             created_at: new Date(),
             updated_at: new Date(),
+            role: IRole.user
+
         }
     }
 
@@ -29,7 +32,7 @@ export class userFactory {
 
         return {
             confirm_password: '123456789',
-            email: `anderson${this.uui}@gmail.com`,
+            email: `${this.uui}anderson@gmail.com`,
             name: 'anderson',
             password: '123456789',
             token: '123456789',
@@ -41,7 +44,7 @@ export class userFactory {
     createWrongRole() {
         return {
             confirm_password: '123456789',
-            email: `anderson${this.uui}@gmail.com`,
+            email: `${this.uui}anderson@gmail.com`,
             name: 'anderson',
             password: '123456789',
             created_at: new Date(),
@@ -65,7 +68,7 @@ export class userFactory {
     createWrongPassword() {
         return {
             confirm_password: "12345674893",
-            email: `anderson${this.uui}@gmail.com`,
+            email: `${this.uui}anderson@gmail.com`,
             name: "anderson",
             password: "123456789",
             created_at: new Date(),
@@ -76,7 +79,7 @@ export class userFactory {
     createWithMalformatedEmail() {
         return {
             confirm_password: "1234567893",
-            email: `ander.son@gma.il.com`,
+            email: `ander.son@gmailcom`,
             name: "anderson",
             password: "123456789",
             token: '123456789',
