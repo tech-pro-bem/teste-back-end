@@ -26,6 +26,9 @@ export class UserFindController {
     async findById(req: RequestProps, res: Response): Promise<Response> {
         const { id } = req.query;
 
+        console.log(req.body)
+        console.log(req.params)
+        console.log(req.headers)
         try {
             const find = await this.userFindService.findById(String(id));
 

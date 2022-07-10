@@ -11,14 +11,14 @@ export class UtilsUser {
         return await bcryptjs.hash(password, 10);
     }
 
-    async compareEncodedPassword(password: string, hash: string) {
-        const compareEncodedPassword = await bcryptjs.compare(password, hash);
+    // async compareEncodedPassword(password: string, hash: string) {
+    //     const compareEncodedPassword = await bcryptjs.compare(password, hash);
 
-        if (!compareEncodedPassword) {
-            throw Error("senha errada")
-        }
+    //     if (!compareEncodedPassword) {
+    //         throw Error("senha errada")
+    //     }
 
-    }
+    // }
 
     public async checkRoleUser(userRole: string) {
         if (userRole !== IRole.user) {
