@@ -15,7 +15,7 @@ export class UserCreateController {
         private utilsUser: UtilsUser) {
     }
 
-    async save(req: Request, res: Response): Promise<Response> {
+    async create(req: Request, res: Response): Promise<Response> {
         const { email = '', name = '',
             password = '', confirm_password = '', role } = req.body;
 
