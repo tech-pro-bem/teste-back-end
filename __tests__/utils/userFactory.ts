@@ -1,4 +1,4 @@
-import { IRole } from "../src/types/userTypes";
+import { IRole } from "../../src/types/userTypes";
 
 export class userFactory {
     uui = Math.random().toFixed(4).replaceAll(".", "");
@@ -9,6 +9,17 @@ export class userFactory {
             email: `anderson${this.uui}@gmail.com`,
             name: 'anderson',
             password: '123456789',
+            created_at: new Date(),
+            updated_at: new Date(),
+        }
+    }
+
+    updateUser() {
+        return {
+            confirm_password: 'sdsdadsasdasdasad',
+            email: `update${this.uui}@gmail.com`,
+            name: 'dssaddadsasda',
+            password: 'sdsdadsasdasdasad',
             created_at: new Date(),
             updated_at: new Date(),
         }

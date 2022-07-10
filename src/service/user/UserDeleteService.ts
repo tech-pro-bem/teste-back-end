@@ -4,7 +4,12 @@ import { UserDeleteRepository } from "../../repositories/users/UserDeleteReposit
 
 class UserDeleteService implements UserDeleteRepository {
     async deleteOne(id: string) {
-        await User.deleteOne({ _id: id });
+        const user = await User.deleteOne({ _id: id })
+
+        if (!user.acknowledged) {
+            throw Error("id " + id + " não encontrado")
+        }
+
     }
 
     async deleteMany() {

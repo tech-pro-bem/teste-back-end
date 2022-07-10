@@ -2,7 +2,7 @@ import { UserCreateService } from "../../src/service/user/UserCreateService";
 import { UserDeleteService } from "../../src/service/user/UserDeleteService";
 import { UserFindService } from "../../src/service/user/UserFindService";
 import { UserInterface } from "../../src/types/userTypes";
-import { userFactory } from "../../utils/userFactory";
+import { userFactory } from "../utils/userFactory";
 import { _server } from "../_server";
 
 describe("[integration] - userFindService ", () => {

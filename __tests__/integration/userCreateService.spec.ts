@@ -1,6 +1,6 @@
 import { UserCreateService } from "../../src/service/user/UserCreateService";
 import { UserDeleteService } from "../../src/service/user/UserDeleteService";
-import { userFactory } from "../../utils/userFactory";
+import { userFactory } from "../utils/userFactory";
 import { _server } from "../_server";
 
 describe("[integration] - userCreateService ", () => {
