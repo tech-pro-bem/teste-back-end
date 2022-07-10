@@ -12,8 +12,9 @@ const findVoluntaryByEmailController = new FindVoluntaryByEmailController()
 const updateVoluntaryController = new UpdateVoluntaryController();
 
 volunteersRoutes.post('/', createVoluntaryController.handle);
+volunteersRoutes.use(ensureAuthenticated);
 volunteersRoutes.delete('/delete', deleteVoluntaryController.handle);
 volunteersRoutes.get('/email', findVoluntaryByEmailController.handle);
-volunteersRoutes.patch('/update', ensureAuthenticated, updateVoluntaryController.handle);
+volunteersRoutes.patch('/update', updateVoluntaryController.handle);
 
 export { volunteersRoutes };

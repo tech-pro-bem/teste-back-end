@@ -3,6 +3,8 @@ import { verify } from "jsonwebtoken";
 import 'dotenv/config';
 import { container } from "tsyringe";
 import { VolunteersRepository } from "../modules/volunteers/repositories/VolunteersRepository";
+import { AppError } from "../errors/AppError";
+import mongoose, { Mongoose, Schema, SchemaType, SchemaTypes } from "mongoose";
 
 interface IPayload {
   sub: string;
@@ -25,9 +27,9 @@ export async function ensureAuthenticated(request: Request, response: Response, 
     const { sub: user_id } = verify(token, process.env.SECRET) as IPayload;
     const volunteersRepository = container.resolve(VolunteersRepository);
     const user = await volunteersRepository.findById(user_id);
-
+    
     if (!user) {
-      throw new Error('User not Found!');
+      throw new AppError('User not Found!', 403);
     }
 
     request.user = {

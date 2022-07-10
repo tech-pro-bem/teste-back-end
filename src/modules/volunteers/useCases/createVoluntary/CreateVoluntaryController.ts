@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
 import { CreateVoluntaryUseCase } from "./CreateVoluntaryUseCase";
 
 class CreateVoluntaryController {
@@ -11,9 +12,7 @@ class CreateVoluntaryController {
 
       return response.status(201).send();
     } catch (err) {
-      return response.status(404).json({
-        error: err.message
-      })
+      throw new AppError(err.message)
     }
   }
 }

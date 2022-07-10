@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
-import { IUpdateVoluntaryDTO } from "../../dtos/IUpdadeVoluntary";
+import { AppError } from "../../../../errors/AppError";
+import { IUpdateVoluntaryDTO } from "../../dtos/IUpdadeVoluntaryDTO";
 import { IVolunteersRepository } from "../../interfaces/IVolunteersRepository";
 
 @injectable()
@@ -13,7 +14,7 @@ class UpdateVoluntaryUseCase {
     const voluntaryAlreadyExists = await this.volunteersRepository.findByEmail(data.email);
 
     if (!voluntaryAlreadyExists) {
-      throw new Error('Voluntary Email not Found!');
+      throw new AppError('Voluntary Email not Found!', 404);
     }
 
     await this.volunteersRepository.update(data);

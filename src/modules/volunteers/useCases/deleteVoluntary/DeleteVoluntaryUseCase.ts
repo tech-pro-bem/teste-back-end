@@ -1,4 +1,5 @@
 import { inject, injectable } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
 import { IVolunteersRepository } from "../../interfaces/IVolunteersRepository";
 
 @injectable()
@@ -11,10 +12,10 @@ class DeleteVoluntaryUseCase {
   async execute(email: string): Promise<void> {
     const voluntaryAlreadyExists = await this.volunteersRepository.findByEmail(email);
     if (!voluntaryAlreadyExists) {
-      throw new Error('Voluntary Not Exists!');
+      throw new AppError('Voluntary Not Exists!', 404);
     }
 
-    await this.volunteersRepository.delete(voluntaryAlreadyExists.id)
+    await this.volunteersRepository.delete(voluntaryAlreadyExists._id)
   }
 }
 

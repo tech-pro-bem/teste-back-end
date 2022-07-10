@@ -1,20 +1,19 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
 import { DeleteVoluntaryUseCase } from "./DeleteVoluntaryUseCase";
 
 class DeleteVoluntaryController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { email } = request.body;
-
+    const { email } = request.query;
+    console.log(email)
     const deleteVoluntaryUseCase = container.resolve(DeleteVoluntaryUseCase);
 
     try {
-      await deleteVoluntaryUseCase.execute(email);
+      await deleteVoluntaryUseCase.execute(email as string);
       return response.status(200).send();
     } catch (err) {
-      return response.status(404).json({
-        error: err.message
-      })
+      throw new AppError(err.message)
     }
   }
 }

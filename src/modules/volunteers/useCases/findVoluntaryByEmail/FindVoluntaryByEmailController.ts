@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
+import { AppError } from "../../../../errors/AppError";
 import { FindVoluntaryByEmailUseCase } from "./FindVoluntaryByEmailUSeCase";
 
 class FindVoluntaryByEmailController {
@@ -13,9 +14,7 @@ class FindVoluntaryByEmailController {
 
       return response.status(200).json(voluntary);
     } catch (err) {
-      return response.status(404).json({
-        error: err.message
-      })
+      throw new AppError(err.message)
     }
   }
 }

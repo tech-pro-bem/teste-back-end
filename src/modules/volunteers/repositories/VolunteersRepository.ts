@@ -24,7 +24,7 @@ class VolunteersRepository implements IVolunteersRepository{
 
   async update(data: IVolunteersDTO): Promise<void> {
     const voluntary = await this.findByEmail(data.email);
-    await voluntary.updateOne(data);
+    await voluntary.updateOne({ data , updated_at: Date.now()});
   }
 
   async delete(id: IVoluntary['id']): Promise<void> {

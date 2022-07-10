@@ -18,7 +18,8 @@ const VoluntarySchema: Schema = new Schema({
   },
   updated_at: {
     type: Date,
-    required: false
+    required: false,
+    default: Date.now
   },
   email: {
     type: String,

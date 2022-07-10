@@ -1,7 +1,8 @@
 import { inject, injectable } from "tsyringe";
 import { IVolunteersRepository } from "../../interfaces/IVolunteersRepository";
 import { hash } from 'bcryptjs';
-import { ICreateVoluntaryDTO } from "../../dtos/ICreateVoluntary";
+import { ICreateVoluntaryDTO } from "../../dtos/ICreateVoluntaryDTO";
+import { AppError } from "../../../../errors/AppError";
 
 
 
@@ -16,7 +17,7 @@ class CreateVoluntaryUseCase {
     const voluntaryAlreadyExists = await this.volunteersRepository.findByEmail(data.email);
 
     if(voluntaryAlreadyExists) {
-      throw new Error('Already Exists!');
+      throw new AppError('Already Exists!', 500);
     }
 
     data.password = await hash(data.password, 8);
