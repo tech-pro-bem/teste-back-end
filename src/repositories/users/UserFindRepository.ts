@@ -8,6 +8,8 @@ interface UserFindRepository {
     findById(id: string): Promise<(UserInterface & {
         _id: Types.ObjectId;
     }) | null>
+
+    emailExist(email: string): void;
 }
 
 export { UserFindRepository };

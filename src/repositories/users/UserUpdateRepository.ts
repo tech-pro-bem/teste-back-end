@@ -4,6 +4,7 @@ import { UserInterface } from "../../types/userTypes";
 
 interface UserUpdateRepository {
     findByIdAndUpdate(data: UserInterface): void;
+    emailExist(email: string): Promise<boolean>;
 }
 
 export { UserUpdateRepository };
