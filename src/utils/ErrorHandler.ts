@@ -9,8 +9,6 @@ export function errorHandler({ error }) {
     });
   }
 
-  // Sentry would be useful for this
-  console.log(error);
   return formatJSONResponse(500, {
     errorName: "InternalServerError",
     message: "Internal Server Error",
