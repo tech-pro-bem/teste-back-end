@@ -1,4 +1,4 @@
-import { IRole } from "../../src/types/userTypes";
+import { IRole, UserInterface } from "../../src/types/userTypes";
 
 export class userFactory {
     uui = Math.random().toFixed(4).replaceAll(".", "");
@@ -12,6 +12,33 @@ export class userFactory {
             created_at: new Date(),
             updated_at: new Date(),
             role: IRole.user
+        }
+    }
+
+    createAndUpdate(data: UserInterface, token: string) {
+        return {
+            confirm_password: '147258369',
+            email: `${this.uui}update@gmail.com`,
+            name: 'silver',
+            password: '147258369',
+            created_at: data.created_at,
+            updated_at: new Date(),
+            role: data.role,
+            authorization: `Bearer ${token}`
+        }
+    }
+
+
+    createAndUpdateWithoutToken() {
+        return {
+            confirm_password: '',
+            email: '',
+            name: '',
+            password: '',
+            token: '',
+            created_at: new Date(),
+            updated_at: new Date(),
+            authorization: `Bearer   token}'`
         }
     }
 

@@ -41,7 +41,6 @@ export class UserDataVerify extends UtilsUser {
         const emailIsZeroLength = email.trim().length === 0;
         const emailIsMalformated = this.regex.test(email) === false;
 
-        console.log({ emailIsZeroLength, emailIsMalformated })
 
         if (email.trim().length === 0 || this.regex.test(email) === false) {
             console.log('email mal')

@@ -28,6 +28,16 @@ describe("[e2e] - userCreateController", () => {
         expect(create.status).toBe(201);
     });
 
+    it("should fail in create with empty values", async () => {
+        const user = new userFactory().createEmptyValues()
+
+        await request(app).post(URL_TEST.POST_CREATE_USER).send(user)
+
+        const create = await request(app).post(URL_TEST.POST_CREATE_USER).send(user)
+
+        expect(create.status).toBe(500);
+    });
+
     it("should fail in create same email", async () => {
         const user = new userFactory().create()
 

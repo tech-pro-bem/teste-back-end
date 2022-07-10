@@ -28,15 +28,13 @@ describe("[e2e] - userFindController", () => {
 
     it("should find user", async () => {
 
-        console.log(userCreatedToBeFound)
-
         const find = await request(app).get(URL_TEST.GET_FIND_BY_USER_ID).query({ id: userCreatedToBeFound._id })
 
         expect(find.status).toBe(200);
 
     });
 
-    it("should faill in find user with wrong id", async () => {
+    it("should fail in find user with wrong id", async () => {
         const find = await request(app).get(URL_TEST.GET_FIND_BY_USER_ID).query({ id: 'userCreated.id' })
         expect(find.status).toBe(500);
     });

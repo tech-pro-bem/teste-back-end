@@ -17,14 +17,10 @@ export class UserDeleteController {
     }
 
     async deleteOne(req: RequestProps, res: Response): Promise<Response> {
-        const { id } = req.body;
-        const id_user = req.id_user;
+        const { id } = req.query;
 
         try {
 
-            const userAuth = await this.userFindService.findById(String(id_user));
-
-            this.utilsUser.checkRoleAdmin(userAuth.role)
 
             await this.userFindService.findById(String(id));
 
@@ -37,14 +33,8 @@ export class UserDeleteController {
 
 
     async deleteMany(req: RequestProps, res: Response): Promise<Response> {
-        const id_user = req.id_user;
 
         try {
-
-            const userAuth = await this.userFindService.findById(String(id_user));
-
-            this.utilsUser.checkRoleAdmin(userAuth.role)
-
             await this.userDeleteService.deleteMany();
             return res.status(204).json();
         } catch (err: any) {
