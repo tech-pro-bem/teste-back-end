@@ -31,6 +31,10 @@ class VolunteersRepository implements IVolunteersRepository{
     await this.repository.deleteOne({ _id: id });
   }
 
+  async findById(id: string): Promise<IVoluntary> {
+    const voluntary = await this.repository.findById(id);
+    return voluntary;
+  }
 }
 
 export { VolunteersRepository };

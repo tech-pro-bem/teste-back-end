@@ -7,6 +7,7 @@ interface IVolunteersRepository {
   findByEmail(email: IVoluntary['email']): Promise<IVoluntary>;
   update({ name, email }: IVolunteersDTO): Promise<void>;
   delete(id: IVoluntary['id']): Promise<void>
+  findById(id: string): Promise<IVoluntary>;
 }
 
 export { IVolunteersRepository };
