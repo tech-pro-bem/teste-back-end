@@ -1,0 +1,26 @@
+{
+  "name": "teste-back-end",
+  "version": "1.0.0",
+  "description": "Desafio para admissão ao time de Back-End da Tech Pro Bem.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js localhost 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lukstorms/teste-back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lukstorms/teste-back-end/issues"
+  },
+  "homepage": "https://github.com/Lukstorms/teste-back-end#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.4.3",
+    "nodemon": "^2.0.19"
+  }
+}
