@@ -2,4 +2,4 @@
 Desafio para admissão ao time de Back-End da Tech Pro Bem.
 
 ## Teste fechado
-Não aceitamos mais inscrições(forks). Aos candidados que ainda estão finalizando, o prazo é até quarta (13/07)
+Não aceitamos mais inscrições(forks). Aos candidados que ainda estão finalizando, o prazo é até quarta (13/07) as 23:59.
