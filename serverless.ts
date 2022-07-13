@@ -1,10 +1,10 @@
 import type { AWS } from "@serverless/typescript";
 
-import createVolunteer from "@functions/volunteers/createVolunteer/";
-import findVolunteer from "@functions/volunteers/findVolunteer/";
-import deleteVolunteer from "@functions/volunteers/deleteVolunteer/";
-import updateVolunteer from "@functions/volunteers/updateVolunteer/";
-import loginAdmin from "@functions/authentication/loginAdmin";
+import createVolunteer from "@volunteers/handlers/createVolunteer";
+import findVolunteer from "@volunteers/handlers/findVolunteer";
+import deleteVolunteer from "@volunteers/handlers/deleteVolunteer";
+import updateVolunteer from "@volunteers/handlers/updateVolunteer";
+import loginAdmin from "@auth/handlers/loginAdmin";
 
 export const region = "sa-east-1";
 
@@ -63,7 +63,7 @@ const serverlessConfiguration: AWS = {
           sources: [
             {
               table: "users",
-              sources: ["./src/database/seeders/AdminSeeder.json"],
+              sources: ["./src/shared/dynamodb/seeders/AdminSeeder.json"],
             },
           ],
         },
@@ -114,10 +114,6 @@ const serverlessConfiguration: AWS = {
               AttributeType: "S",
             },
             {
-              AttributeName: "sk",
-              AttributeType: "S",
-            },
-            {
               AttributeName: "email",
               AttributeType: "S",
             },
@@ -126,10 +122,6 @@ const serverlessConfiguration: AWS = {
             {
               AttributeName: "id",
               KeyType: "HASH",
-            },
-            {
-              AttributeName: "sk",
-              KeyType: "RANGE",
             },
           ],
         },

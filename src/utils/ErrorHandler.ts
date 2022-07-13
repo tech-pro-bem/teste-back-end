@@ -1,5 +1,5 @@
 import { BaseException } from "./BaseException";
-import { formatJSONResponse } from "@libs/api-gateway";
+import { formatJSONResponse } from "./ApiGateway";
 
 export function errorHandler({ error }) {
   if (error instanceof BaseException) {
@@ -9,6 +9,7 @@ export function errorHandler({ error }) {
     });
   }
 
+  console.log(error);
   return formatJSONResponse(500, {
     errorName: "InternalServerError",
     message: "Internal Server Error",

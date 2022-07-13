@@ -13,3 +13,6 @@ jspm_packages
 
 # DynamoDB local
 .dynamodb
+
+# Env file
+.env

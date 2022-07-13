@@ -13,7 +13,10 @@
     "@middy/core": "^2.5.3",
     "@middy/http-json-body-parser": "^2.5.3",
     "bcryptjs": "^2.4.3",
+    "dynamodb-onetable": "^2.3.8",
     "jsonwebtoken": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "tsyringe": "^4.7.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
