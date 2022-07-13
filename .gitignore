@@ -1,0 +1,18 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# esbuild directories
+.esbuild
+
+# Jetbrains configuration directory
+.idea
+
+# DynamoDB local
+.dynamodb
+
+# Env file
+.env
